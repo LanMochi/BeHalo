@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <h2>Login</h2>
+    <form>
+      <input id="username" type="text" placeholder="username" />
+      <input id="password" type="password" placeholder="password" />
+      <button id="loginUser" type="submit">login</button>
+    </form>
+    <h2>Signup</h2>
+    <form action="/signup" method="POST">
+      <input id="newusername" type="text" placeholder="username" />
+      <input id="newpassword" type="password" placeholder="password" />
+      <button id="signupUser" type="submit">Signup</button>
+    </form>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      function loginUser() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        $.ajax({
+          url: "/login",
+          dataType: "text",
+          method: "post",
+          data: { username, password },
+          success: function(data) {
+            console.log("On client side...", data);
+            // window.location.assign("/profile");
+          },
+          error: function(err) {
+            console.log("Err on client side...", err);
+          }
+        });
+      }
+
+      function signupUser() {
+        var username = document.getElementById("newusername").value;
+        var password = document.getElementById("newpassword").value;
+        
+        $.ajax({
+          url:"/signup",
+          dataType: "text",
+          method:"post",
+          data: {username, password},
+          success: function(data) {
+            console.log("On client, new user...", data);
+            window.location.assign(data);
+          },
+          error: function(err) {
+            console.log("Err on client side, signup..", err);
+          }
+        })
+      }
+
+      document
+        .getElementById("loginUser")
+        .addEventListener("click", function(e) {
+          e.preventDefault();
+          loginUser();
+        });
+
+        document
+        .getElementById("signupUser")
+        .addEventListener("click", function(e) {
+          e.preventDefault();
+          signupUser();
+        });
+    </script>
+  </body>
+</html>

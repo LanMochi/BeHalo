@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <h1>Welcome</h1>
+    <button id="logoutButton">Log out</button>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      document
+        .getElementById("logoutButton")
+        .addEventListener("click", function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: "/logout",
+            method: "get",
+            success: function(data) {
+              console.log("logged out", data);
+              window.location.assign(data);
+            },
+            error: function(err) {
+              console.log("Err on client side...", err);
+            }
+          });
+        });
+    </script>
+  </body>
+</html>
